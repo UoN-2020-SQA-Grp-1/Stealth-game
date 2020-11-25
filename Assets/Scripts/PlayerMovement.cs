@@ -2,9 +2,10 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class PlayerMovement : MonoBehaviour { 
+public class PlayerMovement : MonoBehaviour
+{ 
     public CharacterController controller;
-    public float gravity;
+    public float MovementSpeed = 12f;
 
     // Update is called once per frame
     void Update()
@@ -14,10 +15,6 @@ public class PlayerMovement : MonoBehaviour {
 
         Vector3 move = transform.right * x + transform.forward * z;
 
-        controller.Move(move* 12f * Time.deltaTime);
-
-
-
-
+        controller.Move(move * MovementSpeed * Time.deltaTime);
     }
 }
