@@ -1,13 +1,19 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Assets.Lib;
 
 public class MouseLook : MonoBehaviour 
 { 
     public float MouseSensitivity = 100f;
     public Transform PlayerBody;
+    public IInputReader InputReader;
 
     float xRotation = 0f;
+    public MouseLook()
+    {
+        InputReader = new InputReader();
+    }
 
     // Start is called before the first frame update
     void Start()
@@ -18,8 +24,8 @@ public class MouseLook : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        var mouseX = Input.GetAxis("Mouse X") * MouseSensitivity * Time.deltaTime;
-        var mouseY = Input.GetAxis("Mouse Y") * MouseSensitivity * Time.deltaTime;
+        var mouseX = InputReader.getMouseX() * MouseSensitivity * Time.deltaTime;
+        var mouseY = InputReader.getMouseY() * MouseSensitivity * Time.deltaTime;
 
         xRotation -= mouseY;
         xRotation = Mathf.Clamp(xRotation, -90f, 90f);
