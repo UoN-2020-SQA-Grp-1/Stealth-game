@@ -29,8 +29,8 @@ namespace Tests
             GameObject camera = player.transform.Find("Main Camera").gameObject;
 
             var sub = Substitute.For<IInputReader>();
-            sub.getMouseX().Returns(0);
-            sub.getMouseY().Returns(1);
+            sub.GetMouseX().Returns(0);
+            sub.GetMouseY().Returns(1);
 
             player.GetComponent<PlayerMovement>().InputReader = sub;
             camera.GetComponent<MouseLook>().InputReader = sub;
@@ -47,8 +47,8 @@ namespace Tests
             GameObject camera = player.transform.Find("Main Camera").gameObject;
 
             var sub = Substitute.For<IInputReader>();
-            sub.getMouseX().Returns(0);
-            sub.getMouseY().Returns(-1);
+            sub.GetMouseX().Returns(0);
+            sub.GetMouseY().Returns(-1);
 
             player.GetComponent<PlayerMovement>().InputReader = sub;
             camera.GetComponent<MouseLook>().InputReader = sub;
@@ -67,10 +67,10 @@ namespace Tests
             var startingPos = player.transform.position;
 
             var sub = Substitute.For<IInputReader>();
-            sub.getMouseX().Returns(0);
-            sub.getMouseY().Returns(0);
-            sub.getMoveForwards().Returns(1);
-            sub.getMoveSide().Returns(0);
+            sub.GetMouseX().Returns(0);
+            sub.GetMouseY().Returns(0);
+            sub.GetMoveForwards().Returns(1);
+            sub.GetMoveSide().Returns(0);
 
             player.GetComponent<PlayerMovement>().InputReader = sub;
             camera.GetComponent<MouseLook>().InputReader = sub;
@@ -91,10 +91,10 @@ namespace Tests
             var startingPos = player.transform.position;
 
             var sub = Substitute.For<IInputReader>();
-            sub.getMouseX().Returns(0);
-            sub.getMouseY().Returns(0);
-            sub.getMoveForwards().Returns(1);
-            sub.getMoveSide().Returns(0);
+            sub.GetMouseX().Returns(0);
+            sub.GetMouseY().Returns(0);
+            sub.GetMoveForwards().Returns(1);
+            sub.GetMoveSide().Returns(0);
 
             player.GetComponent<PlayerMovement>().InputReader = sub;
             camera.GetComponent<MouseLook>().InputReader = sub;

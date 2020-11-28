@@ -17,8 +17,8 @@ public class PlayerMovement : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        float x = InputReader.getMoveSide();
-        float z = InputReader.getMoveForwards();
+        float x = InputReader.GetMoveSide();
+        float z = InputReader.GetMoveForwards();
 
         Vector3 move = transform.right * x + transform.forward * z;
 

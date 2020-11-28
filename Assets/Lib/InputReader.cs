@@ -9,21 +9,21 @@ namespace Assets.Lib
 {
     public class InputReader : IInputReader
     {
-        public float getMouseY()
+        public float GetMouseY()
         {
             return Input.GetAxis("Mouse Y");
         }
-        public float getMouseX()
+        public float GetMouseX()
         {
             return Input.GetAxis("Mouse X");
         }
 
-        public float getMoveSide()
+        public float GetMoveSide()
         {
             return Input.GetAxis("Horizontal");
         }
 
-        public float getMoveForwards()
+        public float GetMoveForwards()
         {
             return Input.GetAxis("Vertical");
         }
