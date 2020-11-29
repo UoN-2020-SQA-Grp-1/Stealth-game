@@ -9,6 +9,9 @@
 /[Bb]uilds/
 /[Ll]ogs/
 /[Uu]ser[Ss]ettings/
+/[Cc]ode[Cc]overage/
+**/playmode-results.xml
+**/playmode.log
 
 # MemoryCaptures can get excessive in size.
 # They also could contain extremely sensitive data

@@ -1,0 +1,19 @@
+name: CI
+on: [push]
+jobs:
+  ci:
+    runs-on: unity
+    steps:
+    - uses: actions/checkout@v2
+    - name: Run unity tests
+    - run: |
+        xvfb-run --auto-servernum --server-args='-screen 0 640x480x24' /opt/Unity/Editor/Unity -runTests -batchmode -logfile playmode.log -projectPath . -testPlatform PlayMode -testResults playmode-results.xml -enableCodeCoverage -coverageOptins "enableCyclomaticComplexity;generateHtmlReport"
+    - name: Archive test artifacts
+      uses: actions/upload-artifact@v2
+      with:
+        name: Test Results
+        path: |
+          playmode.log
+          playmode-results.xml
+          CodeCoverage/Stealth-game-opencov/PlayMode/TestCoverageResults_0000.xml
+          CodeCoverage/Report

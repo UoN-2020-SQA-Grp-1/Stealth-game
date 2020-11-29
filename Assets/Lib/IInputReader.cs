@@ -8,9 +8,9 @@ namespace Assets.Lib
 {
     public interface IInputReader
     {
-        float GetMouseX();
-        float GetMouseY();
-        float GetMoveSide();
-        float GetMoveForwards();
+        float getMouseX();
+        float getMouseY();
+        float getMoveSide();
+        float getMoveForwards();
     }
 }
