@@ -105,5 +105,44 @@ namespace Tests
             assertSimilar(startingPos.y, player.transform.position.y);
             Assert.Less(startingPos.x, player.transform.position.x);
         }
+        [UnityTest]
+        public IEnumerator TestCrouch()
+        {
+            GameObject player = GameObject.Find("Player");
+            GameObject camera = player.transform.Find("Main Camera").gameObject;
+            var startingCamHeight = camera.transform.position;
+
+            var sub = Substitute.For<IInputReader>();
+            sub.getButtonDown("Crouch").Returns(true);
+            player.GetComponent<PlayerMovement>().InputReader = sub;
+            camera.GetComponent<MouseLook>().InputReader = sub;
+
+            yield return new WaitForSeconds(0);
+
+            Assert.Greater(startingCamHeight.y, camera.transform.position.y);
+
+            yield return new WaitForSeconds(0);
+            Assert.AreEqual(startingCamHeight.y, camera.transform.position.y);
+        }
+
+        [UnityTest]
+        public IEnumerator TestCrouchMovementSpeed()
+        {
+            GameObject player = GameObject.Find("Player");
+            GameObject camera = player.transform.Find("Main Camera").gameObject;
+            PlayerMovement movement = player.GetComponent<PlayerMovement>();
+            var moveSpeed = movement.MovementSpeed;
+
+            Assert.AreEqual(moveSpeed, 12f);
+
+            var sub = Substitute.For<IInputReader>();
+            sub.getButtonDown("Crouch").Returns(true);
+            player.GetComponent<PlayerMovement>().InputReader = sub;
+            camera.GetComponent<MouseLook>().InputReader = sub;
+
+            yield return new WaitForSeconds(0);
+
+            Assert.Less(movement.MovementSpeed, moveSpeed);
+        }
     }
 }

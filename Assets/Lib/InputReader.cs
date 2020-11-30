@@ -27,5 +27,10 @@ namespace Assets.Lib
         {
             return Input.GetAxis("Vertical");
         }
+
+        public bool getButtonDown(string tag)
+        {
+            return Input.GetButtonDown(tag);
+        }
     }
 }

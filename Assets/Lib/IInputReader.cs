@@ -12,5 +12,7 @@ namespace Assets.Lib
         float getMouseY();
         float getMoveSide();
         float getMoveForwards();
+
+        bool getButtonDown(string tag);
     }
 }

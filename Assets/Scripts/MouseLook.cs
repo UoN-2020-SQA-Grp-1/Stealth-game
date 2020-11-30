@@ -10,6 +10,8 @@ public class MouseLook : MonoBehaviour
     public IInputReader InputReader;
 
     float xRotation = 0f;
+    private bool isCrouched = false;
+    
     public MouseLook()
     {
         InputReader = new InputReader();
@@ -33,5 +35,19 @@ public class MouseLook : MonoBehaviour
         // Make it so movement is relative to the rotation of the camera.
         transform.localRotation = Quaternion.Euler(xRotation, 0f, 0f); 
         PlayerBody.Rotate(Vector3.up * mouseX);
+
+        if (InputReader.getButtonDown("Crouch"))
+        {
+            setCrouched();
+        }
+    }
+
+    void setCrouched()
+    {
+        isCrouched = !isCrouched;
+        Vector3 camPosition = transform.position;
+        float y = isCrouched ? camPosition.y - 3 : camPosition.y + 3;
+        camPosition.y = y;
+        transform.position = camPosition;
     }
 }
