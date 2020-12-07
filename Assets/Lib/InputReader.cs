@@ -30,7 +30,16 @@ namespace Assets.Lib
 
         public bool getButtonDown(string tag)
         {
-            return Input.GetButtonDown(tag);
+            // If the button has not been set with the corresponding tag in the input reader in Unity, it throws an exception.
+            try
+            {
+                return Input.GetButtonDown(tag);
+            }
+            catch (ArgumentException)
+            {
+                Debug.Log("Input Reader button tag " + tag + " does not exist.");
+                return false;
+            }
         }
     }
 }

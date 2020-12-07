@@ -1147,7 +1147,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 207ec81c1258ac2469f36c14a7afc94d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  npcs:
+  NPCs:
   - {fileID: 8322952703975927500, guid: 601d1fb620aaaf54a999a0b8d2ec78a8, type: 3}
   - {fileID: 8322952703975927500, guid: 601d1fb620aaaf54a999a0b8d2ec78a8, type: 3}
   - {fileID: 8322952703975927500, guid: 601d1fb620aaaf54a999a0b8d2ec78a8, type: 3}

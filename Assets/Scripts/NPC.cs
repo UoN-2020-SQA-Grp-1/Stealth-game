@@ -5,43 +5,46 @@ using UnityEngine.AI;
 
 public class NPC : MonoBehaviour
 {
-    public GameObject ob;
-    public List<Transform> waypoints;
-    private int waypointsIndex;
-    private NavMeshAgent agent;
-    private static int npcCount = 0;
-    private int id;
+    public List<Transform> Waypoints;
+    private int WaypointsIndex;
+    private NavMeshAgent Agent;
+    // Each NPC needs a unique ID which is used to fetch its waypoints.
+    // So a static int field is used to ensure uniqueness.
+    private static int NPCCount = 0;
+    private int ID;
 
     // Start is called before the first frame update
     void Start()
     {
-        id = npcCount++;
-        agent = GetComponent<NavMeshAgent>();
-        agent.autoBraking = false;
-        string tag = "waypoints" + id;
+        // Assigns the ID and then increments the NPCCount.
+        ID = NPCCount++;
+        Agent = GetComponent<NavMeshAgent>();
+        // Prevents the NPC from stopping when reaching a waypoint.
+        Agent.autoBraking = false;
+        string tag = "waypoints" + ID;
         GameObject[] points = GameObject.FindGameObjectsWithTag(tag);
         foreach (GameObject p in points)
         {
-            waypoints.Add(p.transform);        
+            Waypoints.Add(p.transform);        
         }
         GoToNextWaypoint();
     }
 
     void GoToNextWaypoint()
     {
-        if (waypoints.Count == 0)
+        if (Waypoints.Count == 0)
         {
             Debug.Log("No waypoints in waypoints array");
             return;
         }
-        agent.destination = waypoints[waypointsIndex].position;
-        waypointsIndex = (waypointsIndex + 1) % waypoints.Count;
+        Agent.destination = Waypoints[WaypointsIndex].position;
+        WaypointsIndex = (WaypointsIndex + 1) % Waypoints.Count;
     }
 
     // Update is called once per frame
     void Update()
     {
-        if (!agent.pathPending && agent.remainingDistance < 0.5f)
+        if (!Agent.pathPending && Agent.remainingDistance < 0.5f)
         {
             GoToNextWaypoint();
         }

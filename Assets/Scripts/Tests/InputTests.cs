@@ -106,7 +106,7 @@ namespace Tests
             Assert.Less(startingPos.x, player.transform.position.x);
         }
         [UnityTest]
-        public IEnumerator TestCrouch()
+        public IEnumerator TestCrouchMovesCamera()
         {
             GameObject player = GameObject.Find("Player");
             GameObject camera = player.transform.Find("Main Camera").gameObject;
@@ -141,7 +141,6 @@ namespace Tests
             camera.GetComponent<MouseLook>().InputReader = sub;
 
             yield return new WaitForSeconds(0);
-
             Assert.Less(movement.MovementSpeed, moveSpeed);
         }
     }

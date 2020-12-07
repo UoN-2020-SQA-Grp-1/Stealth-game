@@ -6,15 +6,15 @@ using Assets.Lib;
 public class PlayerMovement : MonoBehaviour
 { 
     public CharacterController controller;
-
-    public float MovementSpeed = 12f;
     public IInputReader InputReader;
-
-    private static float RUNNING_SPEED = 12f;
-    private static float CROUCHING_SPEED = 4f;
-    private bool isCrouched = false;
+    public float RunningSpeed = 12f;
+    public float CrouchingSpeed = 4f;
+    public float MovementSpeed { get; private set; }
+    public bool isCrouched { get; set; } = false;
+    public MouseLook Mouselook;
     public PlayerMovement()
     {
+        MovementSpeed = RunningSpeed;
         InputReader = new InputReader();
     }
 
@@ -24,15 +24,14 @@ public class PlayerMovement : MonoBehaviour
         if (InputReader.getButtonDown("Crouch"))
         {
             isCrouched = !isCrouched;
-            MovementSpeed = isCrouched ? CROUCHING_SPEED : RUNNING_SPEED;
+            MovementSpeed = isCrouched ? CrouchingSpeed : RunningSpeed;
+            Mouselook.toggleCrouch();
         }
 
         float x = InputReader.getMoveSide();
         float z = InputReader.getMoveForwards();
 
         Vector3 move = transform.right * x + transform.forward * z;
-
         controller.Move(move * MovementSpeed * Time.deltaTime);
-
     }
 }

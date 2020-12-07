@@ -8,6 +8,7 @@ public class MouseLook : MonoBehaviour
     public float MouseSensitivity = 100f;
     public Transform PlayerBody;
     public IInputReader InputReader;
+    public float CrouchCameraOffset = 3f;
 
     float xRotation = 0f;
     private bool isCrouched = false;
@@ -35,18 +36,14 @@ public class MouseLook : MonoBehaviour
         // Make it so movement is relative to the rotation of the camera.
         transform.localRotation = Quaternion.Euler(xRotation, 0f, 0f); 
         PlayerBody.Rotate(Vector3.up * mouseX);
-
-        if (InputReader.getButtonDown("Crouch"))
-        {
-            setCrouched();
-        }
     }
 
-    void setCrouched()
+    // Called by the player movement class when the crouch button is pressed.
+    public void toggleCrouch()
     {
         isCrouched = !isCrouched;
         Vector3 camPosition = transform.position;
-        float y = isCrouched ? camPosition.y - 3 : camPosition.y + 3;
+        float y = isCrouched ? camPosition.y - CrouchCameraOffset : camPosition.y + CrouchCameraOffset;
         camPosition.y = y;
         transform.position = camPosition;
     }
