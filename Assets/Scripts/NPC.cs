@@ -10,7 +10,7 @@ public class NPC : MonoBehaviour
     private NavMeshAgent Agent;
     // Each NPC needs a unique ID which is used to fetch its waypoints.
     // So a static int field is used to ensure uniqueness.
-    private static int NPCCount = 0;
+    public static int NPCCount { get; set; } = 0;
     private int ID;
 
     // Start is called before the first frame update

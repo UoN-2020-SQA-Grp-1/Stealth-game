@@ -8,6 +8,9 @@ public class Initialise : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        // Resets the static NPCCount used for assigning their IDS
+        // Ensures they start from ID 0 again when switching levels
+        NPC.NPCCount = 0;
         for (int i = 0; i < NPCs.Length; ++i)
         {
             string tag = "waypoints" + i;

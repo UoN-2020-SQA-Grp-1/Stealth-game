@@ -7,8 +7,8 @@ public class PlayerMovement : MonoBehaviour
 { 
     public CharacterController controller;
     public IInputReader InputReader;
-    public float RunningSpeed = 12f;
-    public float CrouchingSpeed = 4f;
+    public float RunningSpeed = 20f;
+    public float CrouchingSpeed = 10f;
     public float MovementSpeed { get; private set; }
     public bool isCrouched { get; set; } = false;
     public MouseLook Mouselook;

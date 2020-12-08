@@ -288,6 +288,18 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 7f730e2f535487247951ffe05670fb38, type: 3}
+--- !u!114 &227750456 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 5132078122223403587, guid: 4e4005dd1cbfaa94885100c79140c90d,
+    type: 3}
+  m_PrefabInstance: {fileID: 5132078121302306614}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8cdd71eaf36eb374bb63cb08e99f6982, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &232814459
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -2022,6 +2034,21 @@ PrefabInstance:
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5132078121474072527, guid: 4e4005dd1cbfaa94885100c79140c90d,
+        type: 3}
+      propertyPath: Mouselook
+      value: 
+      objectReference: {fileID: 227750456}
+    - target: {fileID: 5132078121474072527, guid: 4e4005dd1cbfaa94885100c79140c90d,
+        type: 3}
+      propertyPath: RunningSpeed
+      value: 20
+      objectReference: {fileID: 0}
+    - target: {fileID: 5132078121474072527, guid: 4e4005dd1cbfaa94885100c79140c90d,
+        type: 3}
+      propertyPath: CrouchingSpeed
+      value: 10
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 4e4005dd1cbfaa94885100c79140c90d, type: 3}
