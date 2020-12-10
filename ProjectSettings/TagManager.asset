@@ -8,6 +8,8 @@ TagManager:
   - waypoints2
   - waypoints0
   - NPC
+  - startPoint
+  - endZone
   layers:
   - Default
   - TransparentFX

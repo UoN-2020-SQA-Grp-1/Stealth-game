@@ -28,8 +28,8 @@ namespace Tests
         [UnityTest]
         public IEnumerator TestMaximumViewUp()
         {
-            GameObject player = GameObject.Find("Player");
-            GameObject camera = player.transform.Find("Main Camera").gameObject;
+            GameObject player = GameObject.FindGameObjectWithTag("Player");
+            GameObject camera = GameObject.FindGameObjectWithTag("MainCamera");
 
             var sub = Substitute.For<IInputReader>();
             sub.getMouseX().Returns(0);
@@ -46,8 +46,8 @@ namespace Tests
         [UnityTest]
         public IEnumerator TestMaximumViewDown()
         {
-            GameObject player = GameObject.Find("Player");
-            GameObject camera = player.transform.Find("Main Camera").gameObject;
+            GameObject player = GameObject.FindGameObjectWithTag("Player");
+            GameObject camera = GameObject.FindGameObjectWithTag("MainCamera");
 
             var sub = Substitute.For<IInputReader>();
             sub.getMouseX().Returns(0);
@@ -64,8 +64,8 @@ namespace Tests
         [UnityTest]
         public IEnumerator TestMoveForward()
         {
-            GameObject player = GameObject.Find("Player");
-            GameObject camera = player.transform.Find("Main Camera").gameObject;
+            GameObject player = GameObject.FindGameObjectWithTag("Player");
+            GameObject camera = GameObject.FindGameObjectWithTag("MainCamera");
             player.transform.rotation = Quaternion.Euler(0, 0, 0);
             var startingPos = player.transform.position;
 
@@ -79,7 +79,7 @@ namespace Tests
             camera.GetComponent<MouseLook>().InputReader = sub;
 
             yield return new WaitForSeconds(1);
-
+            Debug.Log("Move forward Before y = " + startingPos.y + ", after y = " + player.transform.position.y);
             assertSimilar(startingPos.x, player.transform.position.x, 0.001f);
             assertSimilar(startingPos.y, player.transform.position.y, 0.001f);
             Assert.Less(startingPos.z, player.transform.position.z);
@@ -88,8 +88,8 @@ namespace Tests
         [UnityTest]
         public IEnumerator TestMoveForwardRelative()
         {
-            GameObject player = GameObject.Find("Player");
-            GameObject camera = player.transform.Find("Main Camera").gameObject;
+            GameObject player = GameObject.FindGameObjectWithTag("Player");
+            GameObject camera = GameObject.FindGameObjectWithTag("MainCamera");
             player.transform.rotation = Quaternion.Euler(0, 90, 0);
             var startingPos = player.transform.position;
 
@@ -104,6 +104,7 @@ namespace Tests
 
             yield return new WaitForSeconds(1);
 
+            Debug.Log("Move forward relative Before y = " + startingPos.y + ", after y = " + player.transform.position.y);
             assertSimilar(startingPos.z, player.transform.position.z, 0.001f);
             assertSimilar(startingPos.y, player.transform.position.y, 0.001f);
             Assert.Less(startingPos.x, player.transform.position.x);
@@ -111,8 +112,8 @@ namespace Tests
         [UnityTest]
         public IEnumerator TestCrouchMovesCamera()
         {
-            GameObject player = GameObject.Find("Player");
-            GameObject camera = player.transform.Find("Main Camera").gameObject;
+            GameObject player = GameObject.FindGameObjectWithTag("Player");
+            GameObject camera = GameObject.FindGameObjectWithTag("MainCamera");
             var startingCamHeight = camera.transform.position;
 
             var sub = Substitute.For<IInputReader>();
@@ -131,8 +132,8 @@ namespace Tests
         [UnityTest]
         public IEnumerator TestCrouchMovementSpeed()
         {
-            GameObject player = GameObject.Find("Player");
-            GameObject camera = player.transform.Find("Main Camera").gameObject;
+            GameObject player = GameObject.FindGameObjectWithTag("Player");
+            GameObject camera = GameObject.FindGameObjectWithTag("MainCamera");
             PlayerMovement movement = player.GetComponent<PlayerMovement>();
             var moveSpeed = movement.MovementSpeed;
 
