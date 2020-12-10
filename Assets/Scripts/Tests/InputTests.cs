@@ -147,22 +147,5 @@ namespace Tests
             yield return new WaitForSeconds(0);
             Assert.Less(movement.MovementSpeed, moveSpeed);
         }
-        
-        [UnityTest]
-        public IEnumerator TestNPCWaypointMovement()
-        {
-            GameObject[] waypoints = GameObject.FindGameObjectsWithTag("waypoints0");
-
-            yield return null; //Wait for NPCs to be initialised
-            NPC[] npcs = GameObject.FindObjectsOfType<NPC>();
-            Debug.Log("Position before is: " + npcs[0].transform.position);
-            Debug.Log("Expected position before is: " + waypoints[0].transform.position);
-            Assert.AreNotEqual(npcs[0].transform.position, waypoints[0].transform.position);
-
-            yield return new WaitForSeconds(2); //Wait for NPC to move past waypoint 0 and towards waypoint 1
-            Debug.Log("Position after is: " + npcs[0].transform.position);
-            Debug.Log("Expected position after is: " + waypoints[1].transform.position);
-            Assert.AreNotEqual(npcs[0].transform.position, waypoints[0].transform.position);
-        }
     }
 }

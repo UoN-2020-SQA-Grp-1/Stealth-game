@@ -7,6 +7,7 @@ public class NPC : MonoBehaviour
 {
     public List<Transform> Waypoints;
     private int WaypointsIndex;
+    public Transform NextWaypoint => Waypoints[WaypointsIndex];
     private NavMeshAgent Agent;
     // Each NPC needs a unique ID which is used to fetch its waypoints.
     // So a static int field is used to ensure uniqueness.
