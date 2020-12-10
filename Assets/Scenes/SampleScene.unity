@@ -367,6 +367,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: Cube
       objectReference: {fileID: 0}
+    - target: {fileID: 2482747690601698254, guid: 776e37dc4e3ae934684a5b756d231d58,
+        type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 8
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 776e37dc4e3ae934684a5b756d231d58, type: 3}
 --- !u!1 &705507993
@@ -621,6 +626,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: Cube (1)
       objectReference: {fileID: 0}
+    - target: {fileID: 2482747690601698254, guid: 776e37dc4e3ae934684a5b756d231d58,
+        type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 8
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 776e37dc4e3ae934684a5b756d231d58, type: 3}
 --- !u!1 &903585778
@@ -782,6 +792,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: Cube (3)
+      objectReference: {fileID: 0}
+    - target: {fileID: 2482747690601698254, guid: 776e37dc4e3ae934684a5b756d231d58,
+        type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 8
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 776e37dc4e3ae934684a5b756d231d58, type: 3}
@@ -1560,6 +1575,25 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 23
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &1997984362 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 5132078121474072512, guid: 4e4005dd1cbfaa94885100c79140c90d,
+    type: 3}
+  m_PrefabInstance: {fileID: 5132078121302306614}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &1997984363
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1997984362}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8a8ed37029de98842aaa345556f63f25, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  TakeDownRange: 3
 --- !u!1 &2065901779
 GameObject:
   m_ObjectHideFlags: 0
@@ -1978,6 +2012,11 @@ PrefabInstance:
     - target: {fileID: 5132078121474072512, guid: 4e4005dd1cbfaa94885100c79140c90d,
         type: 3}
       propertyPath: m_Name
+      value: Player
+      objectReference: {fileID: 0}
+    - target: {fileID: 5132078121474072512, guid: 4e4005dd1cbfaa94885100c79140c90d,
+        type: 3}
+      propertyPath: m_TagString
       value: Player
       objectReference: {fileID: 0}
     - target: {fileID: 5132078121474072526, guid: 4e4005dd1cbfaa94885100c79140c90d,
