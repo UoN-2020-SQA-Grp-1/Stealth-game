@@ -17,9 +17,12 @@ namespace Tests
             SceneManager.LoadScene("TestScene");
         }
 
-        public void assertSimilar(float a, float b)
+        public void assertSimilar(float expected, float actual, float tolerance)
         {
-            Assert.IsTrue(Mathf.Abs(a - b) < 0.0001);
+            if (Mathf.Abs(expected - actual) > tolerance)
+            {
+                throw new AssertionException(string.Format("Expected : {0}, Actual {1} (tolerance {2})", expected, actual, tolerance));
+            }
         }
 
         [UnityTest]
@@ -63,7 +66,7 @@ namespace Tests
         {
             GameObject player = GameObject.Find("Player");
             GameObject camera = player.transform.Find("Main Camera").gameObject;
-
+            player.transform.rotation = Quaternion.Euler(0, 0, 0);
             var startingPos = player.transform.position;
 
             var sub = Substitute.For<IInputReader>();
@@ -77,8 +80,8 @@ namespace Tests
 
             yield return new WaitForSeconds(1);
 
-            assertSimilar(startingPos.x, player.transform.position.x);
-            assertSimilar(startingPos.y, player.transform.position.y);
+            assertSimilar(startingPos.x, player.transform.position.x, 0.001f);
+            assertSimilar(startingPos.y, player.transform.position.y, 0.001f);
             Assert.Less(startingPos.z, player.transform.position.z);
         }
 
@@ -101,8 +104,8 @@ namespace Tests
 
             yield return new WaitForSeconds(1);
 
-            assertSimilar(startingPos.z, player.transform.position.z);
-            assertSimilar(startingPos.y, player.transform.position.y);
+            assertSimilar(startingPos.z, player.transform.position.z, 0.001f);
+            assertSimilar(startingPos.y, player.transform.position.y, 0.001f);
             Assert.Less(startingPos.x, player.transform.position.x);
         }
         [UnityTest]
@@ -148,12 +151,14 @@ namespace Tests
         public IEnumerator TestNPCWaypointMovement()
         {
             GameObject[] waypoints = GameObject.FindGameObjectsWithTag("waypoints0");
-            yield return new WaitForEndOfFrame();
+
+            yield return null; //Wait for NPCs to be initialised
             NPC[] npcs = GameObject.FindObjectsOfType<NPC>();
             Debug.Log("Position before is: " + npcs[0].transform.position);
             Debug.Log("Expected position before is: " + waypoints[0].transform.position);
             Assert.AreNotEqual(npcs[0].transform.position, waypoints[0].transform.position);
-            yield return new WaitForSeconds(2);
+
+            yield return new WaitForSeconds(2); //Wait for NPC to move past waypoint 0 and towards waypoint 1
             Debug.Log("Position after is: " + npcs[0].transform.position);
             Debug.Log("Expected position after is: " + waypoints[1].transform.position);
             Assert.AreNotEqual(npcs[0].transform.position, waypoints[0].transform.position);
