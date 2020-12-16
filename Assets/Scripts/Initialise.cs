@@ -16,7 +16,7 @@ public class Initialise : MonoBehaviour
         {
             Debug.Log("Start point not set!");
         }
-        Debug.Log("Start position is " + startPoint.transform.position);
+        //Debug.Log("Start position is " + startPoint.transform.position);
         Instantiate(player, startPoint.transform.position, Quaternion.identity);
         NPC.NPCCount = 0;
         for (int i = 0; i < NPCs.Length; ++i)

@@ -12,6 +12,7 @@ public class PlayerMovement : MonoBehaviour
     public float MovementSpeed { get; private set; }
     public bool isCrouched { get; set; } = false;
     public MouseLook Mouselook;
+    public Hearing hearing;
     public PlayerMovement()
     {
         MovementSpeed = RunningSpeed;
@@ -26,6 +27,7 @@ public class PlayerMovement : MonoBehaviour
             isCrouched = !isCrouched;
             MovementSpeed = isCrouched ? CrouchingSpeed : RunningSpeed;
             Mouselook.toggleCrouch();
+            hearing.toggleCrouch();
         }
 
         float x = InputReader.getMoveSide();
