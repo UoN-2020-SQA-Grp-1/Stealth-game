@@ -8,6 +8,7 @@ public class NPC : MonoBehaviour
     public List<Transform> Waypoints;
     private int WaypointsIndex;
     public Transform NextWaypoint => Waypoints[WaypointsIndex];
+    public GameObject DeathAnimation;
     private NavMeshAgent Agent;
     // Each NPC needs a unique ID which is used to fetch its waypoints.
     // So a static int field is used to ensure uniqueness.
@@ -16,6 +17,17 @@ public class NPC : MonoBehaviour
     private int ID;
     private float AlertTimeStamp;
     private bool IsInvestigating;
+
+    /*
+     * OnDestroy() instantiates an explosion when dying. But OnDestroy() is also called even 
+     * when the application quits or when the level is reloaded, causing an exception because 
+     * the explosion wasn't cleaned up properly. Therefore, OnDestroy() should check the state 
+     * of these booleans before instantiating the explosion. Then IsQuitting is set to true in 
+     * OnApplicationQuit() to prevent the explosion being instantiated. Both are required as 
+     * OnApplicationQuit() is automatically called when reloading a level.
+     */
+    private bool IsQuitting = false;
+    private bool IsDead = false;
 
     // Start is called before the first frame update
     void Start()
@@ -60,7 +72,6 @@ public class NPC : MonoBehaviour
         }
         else if (AlertTimeStamp != 0 && Time.time - AlertTimeStamp >= AlertTime)
         {
-            Debug.Log("NPC alert time expired, returning to patrol");
             AlertTimeStamp = 0f;
             GoToNextWaypoint();
         }
@@ -72,5 +83,23 @@ public class NPC : MonoBehaviour
         IsInvestigating = true;
         Agent.destination = player.position;
         AlertTimeStamp = Time.time;
+    }
+
+    private void OnDestroy()
+    {
+        if (!IsQuitting && IsDead)
+        {
+            Instantiate(DeathAnimation, transform.position, Quaternion.identity);
+        }
+    }
+
+    private void OnApplicationQuit()
+    {
+        IsQuitting = true;
+    }
+
+    public void Kill()
+    {
+        IsDead = true;
     }
 }

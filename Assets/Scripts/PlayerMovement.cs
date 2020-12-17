@@ -28,10 +28,7 @@ public class PlayerMovement : MonoBehaviour
     void Update()
     {
         if (InputDisabled)
-        {
-            Debug.Log("Input disabled");
             return;
-        }
         if (InputReader.getButtonDown("Crouch"))
         {
             isCrouched = !isCrouched;
@@ -56,7 +53,6 @@ public class PlayerMovement : MonoBehaviour
 
     public void DisableInput()
     {
-        Debug.Log("Player input is now disabled");
         InputDisabled = true;
     }
 }

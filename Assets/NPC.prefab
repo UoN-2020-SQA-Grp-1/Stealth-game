@@ -252,6 +252,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Waypoints: []
+  DeathAnimation: {fileID: 100000, guid: 2a6951ec14b27ed4da27d13818dbebd2, type: 3}
   AlertTime: 5
 --- !u!195 &-7458709266406706983
 NavMeshAgent:

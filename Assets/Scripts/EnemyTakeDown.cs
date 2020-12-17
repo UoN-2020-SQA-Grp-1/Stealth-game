@@ -22,6 +22,7 @@ public class EnemyTakeDown : MonoBehaviour
                 BoxCollider npc = hit.collider.GetComponent<BoxCollider>();
                 if (npc != null && npc.gameObject.tag == "NPC")
                 {
+                    npc.gameObject.GetComponent<NPC>().Kill();
                     Destroy(npc.gameObject);
                 }
             }
