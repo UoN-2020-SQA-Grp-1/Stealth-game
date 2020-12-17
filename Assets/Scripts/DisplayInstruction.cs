@@ -38,4 +38,17 @@ public class DisplayInstruction : MonoBehaviour
         TextUI.gameObject.SetActive(false);
         Destroy(Trigger);
     }
+
+    public void DisplaySeenText()
+    {
+        TextUI.text = "You were seen! Finish the level without being seen";
+        TextUI.gameObject.SetActive(true);
+        StartCoroutine("WaitFor");
+    }
+
+    private IEnumerator WaitFor()
+    {
+        yield return new WaitForSeconds(5);
+        TextUI.gameObject.SetActive(false);
+    }
 }

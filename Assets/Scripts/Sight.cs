@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using UnityEngine.UI;
 
 public class Sight : MonoBehaviour
 {
@@ -12,6 +13,7 @@ public class Sight : MonoBehaviour
     // The rate at which it checks it's sight 
     public float DetectionRate = 1.0f;
     public int framesSeenBeforeReset = 100;
+    public Text TextUI;
 
     // To keep track of where the player is
     private Transform PlayerTransform;
@@ -22,6 +24,8 @@ public class Sight : MonoBehaviour
     void Start()
     {
         PlayerTransform = GameObject.FindGameObjectWithTag("Player").transform;
+        GameObject g = GameObject.FindGameObjectWithTag("Text");
+        TextUI = g.GetComponent<Text>();
     }
 
     // Update is called once per frame
@@ -50,13 +54,29 @@ public class Sight : MonoBehaviour
                             //Debug.Log("Seen!");
                             if (++framesSeen >= framesSeenBeforeReset)
                             {
-                                framesSeen = 0;
-                                SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
+                                RestartLevel();
                             }
                         }
                     }
                 }
             }
         }
+    }
+
+    private void RestartLevel()
+    {
+        framesSeen = 0;
+        TextUI.text = "You were seen! Finish the level without being seen";
+        TextUI.gameObject.SetActive(true);
+        GameObject player = GameObject.FindGameObjectWithTag("Player");
+        PlayerMovement playerMovement = player.GetComponent<PlayerMovement>();
+        playerMovement.DisableInput();
+        StartCoroutine("WaitFor");
+    }
+    private IEnumerator WaitFor()
+    {
+        yield return new WaitForSeconds(3);
+        TextUI.gameObject.SetActive(false);
+        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
     }
 }

@@ -11,6 +11,7 @@ TagManager:
   - startPoint
   - endZone
   - PlayerBody
+  - Text
   layers:
   - Default
   - TransparentFX

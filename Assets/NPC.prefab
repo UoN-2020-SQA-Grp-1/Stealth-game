@@ -293,6 +293,7 @@ MonoBehaviour:
   CrouchingSightRange: 15
   DetectionRate: 1
   framesSeenBeforeReset: 100
+  TextUI: {fileID: 0}
 --- !u!65 &869883129
 BoxCollider:
   m_ObjectHideFlags: 0
