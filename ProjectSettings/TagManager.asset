@@ -12,6 +12,7 @@ TagManager:
   - endZone
   - PlayerBody
   - Text
+  - waypoints3
   layers:
   - Default
   - TransparentFX
