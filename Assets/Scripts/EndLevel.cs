@@ -13,7 +13,6 @@ public class EndLevel : MonoBehaviour
     }
     public EndLevelAction Action;
     public string NextLevel;
-    public GameObject player;
     public Text TextUI;
 
     private void OnTriggerEnter(Collider other)
@@ -24,8 +23,10 @@ public class EndLevel : MonoBehaviour
         }
         else
         {
+            GameObject player = GameObject.FindGameObjectWithTag("Player");
             PlayerMovement playerMovement = player.GetComponent<PlayerMovement>();
-            playerMovement.InputDisabled = true;
+            //playerMovement.InputDisabled = true;
+            playerMovement.DisableInput();
             TextUI.text = "You have beaten the game, congratulations!";
             TextUI.gameObject.SetActive(true);
         }

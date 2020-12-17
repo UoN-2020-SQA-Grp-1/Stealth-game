@@ -14,27 +14,29 @@ public class PlayerMovement : MonoBehaviour
     public MouseLook Mouselook;
     public float AudioRange = 20f;
     private LayerMask NPCMask;
-    public bool InputDisabled = false;
-    //public Hearing hearing;
+    private bool InputDisabled;
 
     private void Start()
     {
         MovementSpeed = RunningSpeed;
         InputReader = new InputReader();
         NPCMask = LayerMask.GetMask("NPC");
+        InputDisabled = false;
     }
 
     // Update is called once per frame
     void Update()
     {
         if (InputDisabled)
+        {
+            Debug.Log("Input disabled");
             return;
+        }
         if (InputReader.getButtonDown("Crouch"))
         {
             isCrouched = !isCrouched;
             MovementSpeed = isCrouched ? CrouchingSpeed : RunningSpeed;
             Mouselook.toggleCrouch();
-            //hearing.toggleCrouch();
         }
 
         float x = InputReader.getMoveSide();
@@ -50,5 +52,11 @@ public class PlayerMovement : MonoBehaviour
             }
         }
         controller.Move(move * MovementSpeed * Time.deltaTime);
+    }
+
+    public void DisableInput()
+    {
+        Debug.Log("Player input is now disabled");
+        InputDisabled = true;
     }
 }

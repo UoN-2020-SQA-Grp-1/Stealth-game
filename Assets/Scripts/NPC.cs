@@ -68,7 +68,7 @@ public class NPC : MonoBehaviour
 
     public void Alert(Transform player)
     {
-        Debug.Log("NPC Alerted!");
+        //Debug.Log("NPC Alerted!");
         IsInvestigating = true;
         Agent.destination = player.position;
         AlertTimeStamp = Time.time;

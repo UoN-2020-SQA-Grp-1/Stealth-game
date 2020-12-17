@@ -44,10 +44,10 @@ public class Sight : MonoBehaviour
                     if (player != null)
                     {
                         float visibility = player.isCrouched ? CrouchingSightRange : StandingSightRange;
-                        Debug.Log("Visibility = " + visibility);
+                        //Debug.Log("Visibility = " + visibility);
                         if (Vector3.Distance(PlayerTransform.position, gameObject.transform.position) < visibility)
                         {
-                            Debug.Log("Seen!");
+                            //Debug.Log("Seen!");
                             if (++framesSeen >= framesSeenBeforeReset)
                             {
                                 framesSeen = 0;
