@@ -14,6 +14,7 @@ public class PlayerMovement : MonoBehaviour
     public MouseLook Mouselook;
     public float AudioRange = 20f;
     private LayerMask NPCMask;
+    public bool InputDisabled = false;
     //public Hearing hearing;
 
     private void Start()
@@ -26,6 +27,8 @@ public class PlayerMovement : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        if (InputDisabled)
+            return;
         if (InputReader.getButtonDown("Crouch"))
         {
             isCrouched = !isCrouched;
