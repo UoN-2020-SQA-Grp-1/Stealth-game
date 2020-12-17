@@ -1,5 +1,52 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
+--- !u!1 &472681178
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 472681179}
+  - component: {fileID: 472681180}
+  m_Layer: 0
+  m_Name: GameObject
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &472681179
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 472681178}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: -12.333202, y: -0.3914365, z: -60.01229}
+  m_LocalScale: {x: 1, y: 0.45454547, z: 1}
+  m_Children: []
+  m_Father: {fileID: 1410322540894182456}
+  m_RootOrder: 1
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!54 &472681180
+Rigidbody:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 472681178}
+  serializedVersion: 2
+  m_Mass: 1
+  m_Drag: 0
+  m_AngularDrag: 0.05
+  m_UseGravity: 1
+  m_IsKinematic: 0
+  m_Interpolate: 0
+  m_Constraints: 0
+  m_CollisionDetection: 0
 --- !u!1 &7191671173012189406
 GameObject:
   m_ObjectHideFlags: 0
@@ -25,7 +72,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 7191671173012189406}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0.04, y: -0.463, z: -0.66}
+  m_LocalPosition: {x: 0.04, y: 0.94, z: -0.66}
   m_LocalScale: {x: 1, y: 1, z: 0.45454547}
   m_Children: []
   m_Father: {fileID: 1410322540894182456}
@@ -44,12 +91,12 @@ Light:
   m_Shape: 0
   m_Color: {r: 0.9339623, g: 0.7897532, b: 0.057271298, a: 1}
   m_Intensity: 50
-  m_Range: 30
+  m_Range: 20
   m_SpotAngle: 45
   m_InnerSpotAngle: 4
   m_CookieSize: 10
   m_Shadows:
-    m_Type: 0
+    m_Type: 2
     m_Resolution: -1
     m_CustomResolution: -1
     m_Strength: 1
@@ -108,8 +155,7 @@ GameObject:
   - component: {fileID: -7458709266406706983}
   - component: {fileID: 1974280198302167124}
   - component: {fileID: 869883129}
-  - component: {fileID: 836313118}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: NPC
   m_TagString: NPC
   m_Icon: {fileID: 0}
@@ -128,6 +174,7 @@ Transform:
   m_LocalScale: {x: 1, y: 2.2, z: 1}
   m_Children:
   - {fileID: 6985510912743951894}
+  - {fileID: 472681179}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -205,6 +252,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Waypoints: []
+  AlertTime: 5
 --- !u!195 &-7458709266406706983
 NavMeshAgent:
   m_ObjectHideFlags: 0
@@ -240,8 +288,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   FieldOfView: 45
-  ViewDistance: 30
+  ViewDistance: 20
+  StandingSightRange: 30
+  CrouchingSightRange: 15
   DetectionRate: 1
+  framesSeenBeforeReset: 100
 --- !u!65 &869883129
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -253,21 +304,5 @@ BoxCollider:
   m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 3, y: 3, z: 3}
+  m_Size: {x: 2, y: 2, z: 2}
   m_Center: {x: 0.000000059604645, y: 1.8, z: -0.00000008940697}
---- !u!54 &836313118
-Rigidbody:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8322952703975927500}
-  serializedVersion: 2
-  m_Mass: 1
-  m_Drag: 0
-  m_AngularDrag: 0.05
-  m_UseGravity: 1
-  m_IsKinematic: 0
-  m_Interpolate: 0
-  m_Constraints: 0
-  m_CollisionDetection: 0

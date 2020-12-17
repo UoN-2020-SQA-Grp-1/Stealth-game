@@ -6,14 +6,18 @@ using UnityEngine.SceneManagement;
 public class Sight : MonoBehaviour
 {
     public int FieldOfView = 45;
-    public int ViewDistance = 10;
+    public float ViewDistance = 10f;
+    public float StandingSightRange = 10f;
+    public float CrouchingSightRange = 4f;
     // The rate at which it checks it's sight 
     public float DetectionRate = 1.0f;
+    public int framesSeenBeforeReset = 100;
 
     // To keep track of where the player is
     private Transform PlayerTransform;
     private Vector3 RayDirection;
     private float ElapsedTime = 0.0f;
+    private int framesSeen = 0;
 
     void Start()
     {
@@ -39,7 +43,17 @@ public class Sight : MonoBehaviour
                     PlayerMovement player = hit.collider.GetComponent<PlayerMovement>();
                     if (player != null)
                     {
-                        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
+                        float visibility = player.isCrouched ? CrouchingSightRange : StandingSightRange;
+                        Debug.Log("Visibility = " + visibility);
+                        if (Vector3.Distance(PlayerTransform.position, gameObject.transform.position) < visibility)
+                        {
+                            Debug.Log("Seen!");
+                            if (++framesSeen >= framesSeenBeforeReset)
+                            {
+                                framesSeen = 0;
+                                SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
+                            }
+                        }
                     }
                 }
             }

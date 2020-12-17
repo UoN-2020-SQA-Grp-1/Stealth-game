@@ -12,8 +12,10 @@ public class NPC : MonoBehaviour
     // Each NPC needs a unique ID which is used to fetch its waypoints.
     // So a static int field is used to ensure uniqueness.
     public static int NPCCount { get; set; } = 0;
+    public float AlertTime = 5f;
     private int ID;
-    private int TempWaypoint = -1;
+    private float AlertTimeStamp;
+    private bool IsInvestigating;
 
     // Start is called before the first frame update
     void Start()
@@ -27,8 +29,11 @@ public class NPC : MonoBehaviour
         GameObject[] points = GameObject.FindGameObjectsWithTag(tag);
         foreach (GameObject p in points)
         {
+            //Debug.Log("NPC ID " + ID + " waypoint: " + p.transform.position);
             Waypoints.Add(p.transform);        
         }
+        AlertTimeStamp = 0f;
+        IsInvestigating = false;
         GoToNextWaypoint();
     }
 
@@ -39,8 +44,11 @@ public class NPC : MonoBehaviour
             Debug.Log("No waypoints in waypoints array");
             return;
         }
+        if (!IsInvestigating)
+            WaypointsIndex = (WaypointsIndex + 1) % Waypoints.Count;
+        else
+            IsInvestigating = false;
         Agent.destination = Waypoints[WaypointsIndex].position;
-        WaypointsIndex = (WaypointsIndex + 1) % Waypoints.Count;
     }
 
     // Update is called once per frame
@@ -48,16 +56,12 @@ public class NPC : MonoBehaviour
     {
         if (!Agent.pathPending && Agent.remainingDistance < 0.5f)
         {
-            // If a temporary waypoint has been added, i.e. if the NPC is moving
-            // towards where they heard a player, it removes that waypoint again
-            // once they've reached that temporary waypoint, so it can continue 
-            // on its old patrol pattern.
-            if (TempWaypoint != -1)
-            {
-                Debug.Log("Removing temp waypoint " + TempWaypoint);
-                Waypoints.RemoveAt(TempWaypoint);
-                TempWaypoint = -1;
-            }
+            GoToNextWaypoint();
+        }
+        else if (AlertTimeStamp != 0 && Time.time - AlertTimeStamp >= AlertTime)
+        {
+            Debug.Log("NPC alert time expired, returning to patrol");
+            AlertTimeStamp = 0f;
             GoToNextWaypoint();
         }
     }
@@ -65,10 +69,8 @@ public class NPC : MonoBehaviour
     public void Alert(Transform player)
     {
         Debug.Log("NPC Alerted!");
-        if (Waypoints.Count == 0)
-            return;
-        TempWaypoint = WaypointsIndex;
-        Waypoints.Insert(TempWaypoint, player);
-        GoToNextWaypoint();
+        IsInvestigating = true;
+        Agent.destination = player.position;
+        AlertTimeStamp = Time.time;
     }
 }

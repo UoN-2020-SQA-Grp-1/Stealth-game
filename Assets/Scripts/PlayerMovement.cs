@@ -12,11 +12,15 @@ public class PlayerMovement : MonoBehaviour
     public float MovementSpeed { get; private set; }
     public bool isCrouched { get; set; } = false;
     public MouseLook Mouselook;
-    public Hearing hearing;
-    public PlayerMovement()
+    public float AudioRange = 20f;
+    private LayerMask NPCMask;
+    //public Hearing hearing;
+
+    private void Start()
     {
         MovementSpeed = RunningSpeed;
         InputReader = new InputReader();
+        NPCMask = LayerMask.GetMask("NPC");
     }
 
     // Update is called once per frame
@@ -27,13 +31,21 @@ public class PlayerMovement : MonoBehaviour
             isCrouched = !isCrouched;
             MovementSpeed = isCrouched ? CrouchingSpeed : RunningSpeed;
             Mouselook.toggleCrouch();
-            hearing.toggleCrouch();
+            //hearing.toggleCrouch();
         }
 
         float x = InputReader.getMoveSide();
         float z = InputReader.getMoveForwards();
 
         Vector3 move = transform.right * x + transform.forward * z;
+        if (!isCrouched && controller.velocity != Vector3.zero)
+        {
+            Collider[] NPCSinAudioRange = Physics.OverlapSphere(transform.position, AudioRange, NPCMask);
+            foreach (Collider npc in NPCSinAudioRange)
+            {
+                npc.gameObject.GetComponent<NPC>().Alert(transform);
+            }
+        }
         controller.Move(move * MovementSpeed * Time.deltaTime);
     }
 }
