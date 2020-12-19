@@ -35,7 +35,7 @@ public class MouseLook : MonoBehaviour
     }
 
     // Called by the player movement class when the crouch button is pressed.
-    public void toggleCrouch()
+    public void ToggleCrouch()
     {
         isCrouched = !isCrouched;
         Vector3 camPosition = transform.position;
