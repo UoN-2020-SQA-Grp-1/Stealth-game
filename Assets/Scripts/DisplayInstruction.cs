@@ -8,7 +8,7 @@ using Zenject;
 public class DisplayInstruction : MonoBehaviour
 {
     [Inject]
-    private ITextDisplayer textDisplayer;
+    private ITextDisplayer TextDisplayer;
     public string DisplayText;
     public GameObject Trigger;
     public enum OnTriggerEvent
@@ -24,17 +24,17 @@ public class DisplayInstruction : MonoBehaviour
             return;
         if (EventType == OnTriggerEvent.SetActive)
         {
-            textDisplayer.ShowText(DisplayText);
+            TextDisplayer.ShowText(DisplayText);
         }
         else
         {
-            textDisplayer.HideText();
+            TextDisplayer.HideText();
         }
     }
 
     private void OnTriggerExit(Collider other)
     {
-        textDisplayer.HideText();
+        TextDisplayer.HideText();
         Destroy(Trigger);
     }
 }

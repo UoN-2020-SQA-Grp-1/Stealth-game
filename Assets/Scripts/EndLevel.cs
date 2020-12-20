@@ -9,7 +9,7 @@ using Assets.Lib;
 public class EndLevel : MonoBehaviour
 {
     [Inject]
-    private ITextDisplayer textDisplayer;
+    private ITextDisplayer TextDisplayer;
     public enum EndLevelAction
     {
         NextLevel,
@@ -28,9 +28,8 @@ public class EndLevel : MonoBehaviour
         {
             GameObject player = GameObject.FindGameObjectWithTag("Player");
             PlayerMovement playerMovement = player.GetComponent<PlayerMovement>();
-            //playerMovement.InputDisabled = true;
             playerMovement.DisableInput();
-            textDisplayer.ShowText("You have beaten the game, congratulations!");
+            TextDisplayer.ShowText("You have beaten the game, congratulations!");
         }
     }
 }

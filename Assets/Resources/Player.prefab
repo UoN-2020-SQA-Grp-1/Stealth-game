@@ -165,12 +165,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bd6248282e2fe85488d39bdcdd522abb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  controller: {fileID: 8824737238570626094}
+  Controller: {fileID: 8824737238570626094}
   RunningSpeed: 20
   CrouchingSpeed: 10
   Mouselook: {fileID: 1450103328015301114}
   AudioRange: 20
-  InputDisabled: 0
 --- !u!114 &2610604819207441853
 MonoBehaviour:
   m_ObjectHideFlags: 0

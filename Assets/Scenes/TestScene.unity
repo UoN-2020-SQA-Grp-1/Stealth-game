@@ -541,7 +541,7 @@ GameObject:
   - component: {fileID: 833690402}
   - component: {fileID: 833690401}
   m_Layer: 0
-  m_Name: InitNPCs
+  m_Name: Init
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -561,7 +561,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   NPCs:
   - {fileID: 8322952703975927500, guid: 601d1fb620aaaf54a999a0b8d2ec78a8, type: 3}
-  player: {fileID: 8824737238570626095, guid: ea4c91706a7ab2a45b4ed0e8eae363c2, type: 3}
+  Player: {fileID: 8824737238570626095, guid: ea4c91706a7ab2a45b4ed0e8eae363c2, type: 3}
 --- !u!4 &833690402
 Transform:
   m_ObjectHideFlags: 0

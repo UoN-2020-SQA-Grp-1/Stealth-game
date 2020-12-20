@@ -7,10 +7,10 @@ using Assets.Lib;
 public class Initialise : MonoBehaviour
 {
     public GameObject[] NPCs;
-    public GameObject player;
+    public GameObject Player;
 
     [Inject]
-    private DiContainer _container;
+    private DiContainer Container;
     // Start is called before the first frame update
     void Start()
     {
@@ -21,14 +21,13 @@ public class Initialise : MonoBehaviour
         {
             Debug.Log("Start point not set!");
         }
-        //Debug.Log("Start position is " + startPoint.transform.position);
-        _container.InstantiatePrefab(player, startPoint.transform.position, Quaternion.identity, null);
+        Container.InstantiatePrefab(Player, startPoint.transform.position, Quaternion.identity, null);
         NPC.NPCCount = 0;
         for (int i = 0; i < NPCs.Length; ++i)
         {
             string tag = "waypoints" + i;
             GameObject[] points = GameObject.FindGameObjectsWithTag(tag);
-            _container.InstantiatePrefab(NPCs[i], points[0].transform.position, Quaternion.identity, null);
+            Container.InstantiatePrefab(NPCs[i], points[0].transform.position, Quaternion.identity, null);
         }
     }
 }

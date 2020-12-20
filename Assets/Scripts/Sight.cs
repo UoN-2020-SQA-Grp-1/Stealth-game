@@ -9,7 +9,7 @@ using Assets.Lib;
 public class Sight : MonoBehaviour
 {
     [Inject]
-    private ITextDisplayer textDisplayer;
+    private ITextDisplayer TextDisplayer;
 
     public int FieldOfView = 45;
     public float ViewDistance = 10f;
@@ -17,13 +17,13 @@ public class Sight : MonoBehaviour
     public float CrouchingSightRange = 4f;
     // The rate at which it checks it's sight 
     public float DetectionRate = 1.0f;
-    public int framesSeenBeforeReset = 100;
+    public int FramesSeenBeforeReset = 100;
 
     // To keep track of where the player is
     private Transform PlayerTransform;
     private Vector3 RayDirection;
     private float ElapsedTime = 0.0f;
-    private int framesSeen = 0;
+    private int FramesSeen = 0;
 
     void Start()
     {
@@ -49,12 +49,11 @@ public class Sight : MonoBehaviour
                     PlayerMovement player = hit.collider.GetComponent<PlayerMovement>();
                     if (player != null)
                     {
-                        float visibility = player.isCrouched ? CrouchingSightRange : StandingSightRange;
+                        float visibility = player.IsCrouched ? CrouchingSightRange : StandingSightRange;
                         //Debug.Log("Visibility = " + visibility);
                         if (Vector3.Distance(PlayerTransform.position, gameObject.transform.position) < visibility)
                         {
-                            //Debug.Log("Seen!");
-                            if (++framesSeen >= framesSeenBeforeReset)
+                            if (++FramesSeen >= FramesSeenBeforeReset)
                             {
                                 RestartLevel();
                             }
@@ -67,8 +66,8 @@ public class Sight : MonoBehaviour
 
     private void RestartLevel()
     {
-        framesSeen = 0;
-        textDisplayer.ShowText("You were seen! Finish the level without being seen");
+        FramesSeen = 0;
+        TextDisplayer.ShowText("You were seen! Finish the level without being seen");
         GameObject player = GameObject.FindGameObjectWithTag("Player");
         PlayerMovement playerMovement = player.GetComponent<PlayerMovement>();
         playerMovement.DisableInput();
@@ -77,7 +76,7 @@ public class Sight : MonoBehaviour
     private IEnumerator WaitFor()
     {
         yield return new WaitForSeconds(3);
-        textDisplayer.HideText();
+        TextDisplayer.HideText();
         SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
     }
 }

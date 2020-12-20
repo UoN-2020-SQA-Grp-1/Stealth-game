@@ -41,7 +41,6 @@ public class NPC : MonoBehaviour
         GameObject[] points = GameObject.FindGameObjectsWithTag(tag);
         foreach (GameObject p in points)
         {
-            //Debug.Log("NPC ID " + ID + " waypoint: " + p.transform.position);
             Waypoints.Add(p.transform);        
         }
         AlertTimeStamp = 0f;
@@ -63,7 +62,6 @@ public class NPC : MonoBehaviour
         Agent.destination = Waypoints[WaypointsIndex].position;
     }
 
-    // Update is called once per frame
     void Update()
     {
         if (!Agent.pathPending && Agent.remainingDistance < 0.5f)
@@ -79,7 +77,6 @@ public class NPC : MonoBehaviour
 
     public void Alert(Transform player)
     {
-        //Debug.Log("NPC Alerted!");
         IsInvestigating = true;
         Agent.destination = player.position;
         AlertTimeStamp = Time.time;

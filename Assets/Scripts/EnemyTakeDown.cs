@@ -7,13 +7,13 @@ using Zenject;
 public class EnemyTakeDown : MonoBehaviour
 {
     [Inject]
-    private IInputReader _inputReader;
+    private IInputReader InputReader;
     public float TakeDownRange = 3f;
 
     // Update is called once per frame
     void Update()
     {
-        if (_inputReader.getButtonDown("Submit"))
+        if (InputReader.getButtonDown("Submit"))
         {
             RaycastHit hit;
             // Sends a ray from camera to the mouse position.

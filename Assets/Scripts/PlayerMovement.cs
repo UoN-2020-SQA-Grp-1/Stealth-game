@@ -6,13 +6,13 @@ using Zenject;
 
 public class PlayerMovement : MonoBehaviour
 {
-    public CharacterController controller;
+    public CharacterController Controller;
     [Inject]
-    private IInputReader _inputReader;
+    private IInputReader InputReader;
     public float RunningSpeed = 20f;
     public float CrouchingSpeed = 10f;
     public float MovementSpeed { get; private set; }
-    public bool isCrouched { get; set; } = false;
+    public bool IsCrouched { get; set; } = false;
     public MouseLook Mouselook;
     public float AudioRange = 20f;
     private LayerMask NPCMask;
@@ -30,18 +30,18 @@ public class PlayerMovement : MonoBehaviour
     {
         if (InputDisabled)
             return;
-        if (_inputReader.getButtonDown("Crouch"))
+        if (InputReader.getButtonDown("Crouch"))
         {
-            isCrouched = !isCrouched;
-            MovementSpeed = isCrouched ? CrouchingSpeed : RunningSpeed;
+            IsCrouched = !IsCrouched;
+            MovementSpeed = IsCrouched ? CrouchingSpeed : RunningSpeed;
             Mouselook.ToggleCrouch();
         }
 
-        float x = _inputReader.getMoveSide();
-        float z = _inputReader.getMoveForwards();
+        float x = InputReader.getMoveSide();
+        float z = InputReader.getMoveForwards();
 
         Vector3 move = transform.right * x + transform.forward * z;
-        if (!isCrouched && controller.velocity != Vector3.zero)
+        if (!IsCrouched && Controller.velocity != Vector3.zero)
         {
             Collider[] NPCSinAudioRange = Physics.OverlapSphere(transform.position, AudioRange, NPCMask);
             foreach (Collider npc in NPCSinAudioRange)
@@ -49,7 +49,7 @@ public class PlayerMovement : MonoBehaviour
                 npc.gameObject.GetComponent<NPC>().Alert(transform);
             }
         }
-        controller.Move(move * MovementSpeed * Time.deltaTime);
+        Controller.Move(move * MovementSpeed * Time.deltaTime);
     }
 
     public void DisableInput()
