@@ -299,6 +299,10 @@ PrefabInstance:
       propertyPath: TextUI
       value: 
       objectReference: {fileID: 1679115933}
+    - target: {fileID: 979221529, guid: c3fe66eac534e284797b7ae36d9cbc19, type: 3}
+      propertyPath: Action
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 2303599098162360427, guid: c3fe66eac534e284797b7ae36d9cbc19,
         type: 3}
       propertyPath: m_LocalPosition.x

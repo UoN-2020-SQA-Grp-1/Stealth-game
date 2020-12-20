@@ -14,7 +14,6 @@ public class MouseLook : MonoBehaviour
 
     float xRotation = 0f;
     private bool isCrouched = false;
-
     // Start is called before the first frame update
     void Start()
     {
@@ -36,7 +35,7 @@ public class MouseLook : MonoBehaviour
     }
 
     // Called by the player movement class when the crouch button is pressed.
-    public void toggleCrouch()
+    public void ToggleCrouch()
     {
         isCrouched = !isCrouched;
         Vector3 camPosition = transform.position;

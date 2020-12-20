@@ -34,7 +34,7 @@ public class PlayerMovement : MonoBehaviour
         {
             isCrouched = !isCrouched;
             MovementSpeed = isCrouched ? CrouchingSpeed : RunningSpeed;
-            Mouselook.toggleCrouch();
+            Mouselook.ToggleCrouch();
         }
 
         float x = _inputReader.getMoveSide();
