@@ -32,9 +32,7 @@ public class PlayerMovement : MonoBehaviour
             return;
         if (InputReader.getButtonDown("Crouch"))
         {
-            IsCrouched = !IsCrouched;
-            MovementSpeed = IsCrouched ? CrouchingSpeed : RunningSpeed;
-            Mouselook.ToggleCrouch();
+            ToggleCrouch();
         }
 
         float x = InputReader.getMoveSide();
@@ -46,10 +44,17 @@ public class PlayerMovement : MonoBehaviour
             Collider[] NPCSinAudioRange = Physics.OverlapSphere(transform.position, AudioRange, NPCMask);
             foreach (Collider npc in NPCSinAudioRange)
             {
-                npc.gameObject.GetComponent<NPC>().Alert(transform);
+                npc.gameObject.GetComponent<NPC>().Alert(transform.position);
             }
         }
         Controller.Move(move * MovementSpeed * Time.deltaTime);
+    }
+
+    public void ToggleCrouch()
+    {
+        IsCrouched = !IsCrouched;
+        MovementSpeed = IsCrouched ? CrouchingSpeed : RunningSpeed;
+        Mouselook.ToggleCrouch();
     }
 
     public void DisableInput()

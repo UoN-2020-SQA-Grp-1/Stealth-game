@@ -75,10 +75,10 @@ public class NPC : MonoBehaviour
         }
     }
 
-    public void Alert(Transform player)
+    public void Alert(Vector3 pos)
     {
         IsInvestigating = true;
-        Agent.destination = player.position;
+        Agent.destination = pos;
         AlertTimeStamp = Time.time;
     }
 
