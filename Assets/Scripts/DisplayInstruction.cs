@@ -2,10 +2,13 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using Assets.Lib;
+using Zenject;
 
 public class DisplayInstruction : MonoBehaviour
 {
-    public Text TextUI;
+    [Inject]
+    private ITextDisplayer textDisplayer;
     public string DisplayText;
     public GameObject Trigger;
     public enum OnTriggerEvent
@@ -14,11 +17,6 @@ public class DisplayInstruction : MonoBehaviour
         SetInactive
     };
     public OnTriggerEvent EventType;
-    // Start is called before the first frame update
-    void Start()
-    {
-        TextUI.gameObject.SetActive(true);
-    }
 
     private void OnTriggerEnter(Collider other)
     {
@@ -26,29 +24,17 @@ public class DisplayInstruction : MonoBehaviour
             return;
         if (EventType == OnTriggerEvent.SetActive)
         {
-            TextUI.text = DisplayText;
-            TextUI.gameObject.SetActive(true);
+            textDisplayer.ShowText(DisplayText);
         }
         else
-            TextUI.gameObject.SetActive(false);
+        {
+            textDisplayer.HideText();
+        }
     }
 
     private void OnTriggerExit(Collider other)
     {
-        TextUI.gameObject.SetActive(false);
+        textDisplayer.HideText();
         Destroy(Trigger);
-    }
-
-    public void DisplaySeenText()
-    {
-        TextUI.text = "You were seen! Finish the level without being seen";
-        TextUI.gameObject.SetActive(true);
-        StartCoroutine("WaitFor");
-    }
-
-    private IEnumerator WaitFor()
-    {
-        yield return new WaitForSeconds(5);
-        TextUI.gameObject.SetActive(false);
     }
 }

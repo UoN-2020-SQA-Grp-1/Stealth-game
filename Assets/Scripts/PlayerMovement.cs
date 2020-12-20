@@ -2,11 +2,13 @@
 using System.Collections.Generic;
 using UnityEngine;
 using Assets.Lib;
+using Zenject;
 
 public class PlayerMovement : MonoBehaviour
-{ 
+{
     public CharacterController controller;
-    public IInputReader InputReader;
+    [Inject]
+    private IInputReader _inputReader;
     public float RunningSpeed = 20f;
     public float CrouchingSpeed = 10f;
     public float MovementSpeed { get; private set; }
@@ -19,7 +21,6 @@ public class PlayerMovement : MonoBehaviour
     private void Start()
     {
         MovementSpeed = RunningSpeed;
-        InputReader = new InputReader();
         NPCMask = LayerMask.GetMask("NPC");
         InputDisabled = false;
     }
@@ -29,15 +30,15 @@ public class PlayerMovement : MonoBehaviour
     {
         if (InputDisabled)
             return;
-        if (InputReader.getButtonDown("Crouch"))
+        if (_inputReader.getButtonDown("Crouch"))
         {
             isCrouched = !isCrouched;
             MovementSpeed = isCrouched ? CrouchingSpeed : RunningSpeed;
             Mouselook.toggleCrouch();
         }
 
-        float x = InputReader.getMoveSide();
-        float z = InputReader.getMoveForwards();
+        float x = _inputReader.getMoveSide();
+        float z = _inputReader.getMoveForwards();
 
         Vector3 move = transform.right * x + transform.forward * z;
         if (!isCrouched && controller.velocity != Vector3.zero)

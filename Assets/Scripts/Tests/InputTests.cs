@@ -6,17 +6,13 @@ using UnityEngine.TestTools;
 using UnityEngine.SceneManagement;
 using Assets.Lib;
 using NSubstitute;
+using Zenject;
 
 namespace Tests
 {
-    public class InputTests
+    [TestFixture]
+    public class InputTests : Base
     {
-        [SetUp]
-        public void LoadScene()
-        {
-            SceneManager.LoadScene("TestScene");
-        }
-
         public void assertSimilar(float expected, float actual, float tolerance)
         {
             if (Mathf.Abs(expected - actual) > tolerance)
@@ -28,15 +24,12 @@ namespace Tests
         [UnityTest]
         public IEnumerator TestMaximumViewUp()
         {
+            yield return LoadScene("TestScene");
             GameObject player = GameObject.FindGameObjectWithTag("Player");
             GameObject camera = GameObject.FindGameObjectWithTag("MainCamera");
 
-            var sub = Substitute.For<IInputReader>();
-            sub.getMouseX().Returns(0);
-            sub.getMouseY().Returns(1);
-
-            player.GetComponent<PlayerMovement>().InputReader = sub;
-            camera.GetComponent<MouseLook>().InputReader = sub;
+            inputReader.getMouseX().Returns(0);
+            inputReader.getMouseY().Returns(1);
 
             yield return new WaitForSeconds(4);
 
@@ -46,15 +39,12 @@ namespace Tests
         [UnityTest]
         public IEnumerator TestMaximumViewDown()
         {
+            yield return LoadScene("TestScene");
             GameObject player = GameObject.FindGameObjectWithTag("Player");
             GameObject camera = GameObject.FindGameObjectWithTag("MainCamera");
 
-            var sub = Substitute.For<IInputReader>();
-            sub.getMouseX().Returns(0);
-            sub.getMouseY().Returns(-1);
-
-            player.GetComponent<PlayerMovement>().InputReader = sub;
-            camera.GetComponent<MouseLook>().InputReader = sub;
+            inputReader.getMouseX().Returns(0);
+            inputReader.getMouseY().Returns(-1);
 
             yield return new WaitForSeconds(4);
 
@@ -64,19 +54,13 @@ namespace Tests
         [UnityTest]
         public IEnumerator TestMoveForward()
         {
+            yield return LoadScene("TestScene");
             GameObject player = GameObject.FindGameObjectWithTag("Player");
             GameObject camera = GameObject.FindGameObjectWithTag("MainCamera");
             player.transform.rotation = Quaternion.Euler(0, 0, 0);
             var startingPos = player.transform.position;
 
-            var sub = Substitute.For<IInputReader>();
-            sub.getMouseX().Returns(0);
-            sub.getMouseY().Returns(0);
-            sub.getMoveForwards().Returns(1);
-            sub.getMoveSide().Returns(0);
-
-            player.GetComponent<PlayerMovement>().InputReader = sub;
-            camera.GetComponent<MouseLook>().InputReader = sub;
+            inputReader.getMoveForwards().Returns(1);
 
             yield return new WaitForSeconds(1);
             Debug.Log("Move forward Before y = " + startingPos.y + ", after y = " + player.transform.position.y);
@@ -88,19 +72,13 @@ namespace Tests
         [UnityTest]
         public IEnumerator TestMoveForwardRelative()
         {
+            yield return LoadScene("TestScene");
             GameObject player = GameObject.FindGameObjectWithTag("Player");
             GameObject camera = GameObject.FindGameObjectWithTag("MainCamera");
             player.transform.rotation = Quaternion.Euler(0, 90, 0);
             var startingPos = player.transform.position;
 
-            var sub = Substitute.For<IInputReader>();
-            sub.getMouseX().Returns(0);
-            sub.getMouseY().Returns(0);
-            sub.getMoveForwards().Returns(1);
-            sub.getMoveSide().Returns(0);
-
-            player.GetComponent<PlayerMovement>().InputReader = sub;
-            camera.GetComponent<MouseLook>().InputReader = sub;
+            inputReader.getMoveForwards().Returns(1);
 
             yield return new WaitForSeconds(1);
 
@@ -112,26 +90,24 @@ namespace Tests
         [UnityTest]
         public IEnumerator TestCrouchMovesCamera()
         {
+            yield return LoadScene("TestScene");
             GameObject player = GameObject.FindGameObjectWithTag("Player");
             GameObject camera = GameObject.FindGameObjectWithTag("MainCamera");
             var startingCamHeight = camera.transform.position;
 
-            var sub = Substitute.For<IInputReader>();
-            sub.getButtonDown("Crouch").Returns(true);
-            player.GetComponent<PlayerMovement>().InputReader = sub;
-            camera.GetComponent<MouseLook>().InputReader = sub;
-
-            yield return new WaitForSeconds(0);
-
+            inputReader.getButtonDown("Crouch").Returns(true, false);
+            yield return null;
             Assert.Greater(startingCamHeight.y, camera.transform.position.y);
 
-            yield return new WaitForSeconds(0);
+            inputReader.getButtonDown("Crouch").Returns(true, false);
+            yield return null;
             Assert.AreEqual(startingCamHeight.y, camera.transform.position.y);
         }
 
         [UnityTest]
         public IEnumerator TestCrouchMovementSpeed()
         {
+            yield return LoadScene("TestScene");
             GameObject player = GameObject.FindGameObjectWithTag("Player");
             GameObject camera = GameObject.FindGameObjectWithTag("MainCamera");
             PlayerMovement movement = player.GetComponent<PlayerMovement>();
@@ -139,10 +115,7 @@ namespace Tests
 
             Assert.AreEqual(moveSpeed, movement.RunningSpeed);
 
-            var sub = Substitute.For<IInputReader>();
-            sub.getButtonDown("Crouch").Returns(true);
-            player.GetComponent<PlayerMovement>().InputReader = sub;
-            camera.GetComponent<MouseLook>().InputReader = sub;
+            inputReader.getButtonDown("Crouch").Returns(true);
 
             yield return new WaitForSeconds(0);
             Assert.Less(movement.MovementSpeed, moveSpeed);

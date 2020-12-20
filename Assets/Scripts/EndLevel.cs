@@ -3,9 +3,13 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
+using Zenject;
+using Assets.Lib;
 
 public class EndLevel : MonoBehaviour
 {
+    [Inject]
+    private ITextDisplayer textDisplayer;
     public enum EndLevelAction
     {
         NextLevel,
@@ -13,7 +17,6 @@ public class EndLevel : MonoBehaviour
     }
     public EndLevelAction Action;
     public string NextLevel;
-    public Text TextUI;
 
     private void OnTriggerEnter(Collider other)
     {
@@ -27,8 +30,7 @@ public class EndLevel : MonoBehaviour
             PlayerMovement playerMovement = player.GetComponent<PlayerMovement>();
             //playerMovement.InputDisabled = true;
             playerMovement.DisableInput();
-            TextUI.text = "You have beaten the game, congratulations!";
-            TextUI.gameObject.SetActive(true);
+            textDisplayer.ShowText("You have beaten the game, congratulations!");
         }
     }
 }

@@ -4,20 +4,20 @@ using NUnit.Framework;
 using UnityEngine;
 using UnityEngine.TestTools;
 using UnityEngine.SceneManagement;
+using Zenject;
+using Assets.Lib;
+using NSubstitute;
 
 namespace Tests
 {
-    public class NPCTests1
+    [TestFixture]
+    public class NPCTests : Base
     {
-        [SetUp]
-        public void LoadScene()
-        {
-            SceneManager.LoadScene("TestScene");
-        }
 
         [UnityTest]
         public IEnumerator TestNPCWaypointMovement()
         {
+            yield return LoadScene("TestScene");
             GameObject[] waypoints = GameObject.FindGameObjectsWithTag("waypoints0");
 
             yield return null; //Wait for NPCs to be initialised
@@ -35,6 +35,7 @@ namespace Tests
         [UnityTest]
         public IEnumerator TestNPCWaypointCycles()
         {
+            yield return LoadScene("TestScene");
             GameObject[] waypoints = GameObject.FindGameObjectsWithTag("waypoints0");
             const float timeBetweenWaypoints = 3.5f;
 

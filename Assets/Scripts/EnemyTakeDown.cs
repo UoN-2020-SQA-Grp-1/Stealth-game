@@ -2,20 +2,22 @@
 using System.Collections.Generic;
 using UnityEngine;
 using Assets.Lib;
+using Zenject;
 
 public class EnemyTakeDown : MonoBehaviour
 {
-    public IInputReader InputReader = new InputReader();
+    [Inject]
+    private IInputReader _inputReader;
     public float TakeDownRange = 3f;
 
     // Update is called once per frame
     void Update()
     {
-        if (InputReader.getButtonDown("Submit"))
+        if (_inputReader.getButtonDown("Submit"))
         {
             RaycastHit hit;
             // Sends a ray from camera to the mouse position.
-            Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
+            Ray ray = Camera.main.ScreenPointToRay(new Vector3 (Screen.width, Screen.height) / 2);
             if (Physics.Raycast(ray, out hit, TakeDownRange))
             {
                 // Checks that it collides with an NPC.

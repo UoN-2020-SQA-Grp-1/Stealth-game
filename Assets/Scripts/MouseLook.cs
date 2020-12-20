@@ -2,21 +2,18 @@
 using System.Collections.Generic;
 using UnityEngine;
 using Assets.Lib;
+using Zenject;
 
 public class MouseLook : MonoBehaviour 
 { 
     public float MouseSensitivity = 100f;
     public Transform PlayerBody;
-    public IInputReader InputReader;
+    [Inject]
+    private IInputReader _inputReader;
     public float CrouchCameraOffset = 3f;
 
     float xRotation = 0f;
     private bool isCrouched = false;
-    
-    public MouseLook()
-    {
-        InputReader = new InputReader();
-    }
 
     // Start is called before the first frame update
     void Start()
@@ -27,8 +24,8 @@ public class MouseLook : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        float mouseX = InputReader.getMouseX() * MouseSensitivity * Time.deltaTime;
-        float mouseY = InputReader.getMouseY() * MouseSensitivity * Time.deltaTime;
+        float mouseX = _inputReader.getMouseX() * MouseSensitivity * Time.deltaTime;
+        float mouseY = _inputReader.getMouseY() * MouseSensitivity * Time.deltaTime;
 
         xRotation -= mouseY;
         xRotation = Mathf.Clamp(xRotation, -90f, 90f);

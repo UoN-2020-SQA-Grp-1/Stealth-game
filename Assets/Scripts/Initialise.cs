@@ -1,11 +1,16 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Zenject;
+using Assets.Lib;
 
 public class Initialise : MonoBehaviour
 {
     public GameObject[] NPCs;
     public GameObject player;
+
+    [Inject]
+    private DiContainer _container;
     // Start is called before the first frame update
     void Start()
     {
@@ -17,13 +22,13 @@ public class Initialise : MonoBehaviour
             Debug.Log("Start point not set!");
         }
         //Debug.Log("Start position is " + startPoint.transform.position);
-        Instantiate(player, startPoint.transform.position, Quaternion.identity);
+        _container.InstantiatePrefab(player, startPoint.transform.position, Quaternion.identity, null);
         NPC.NPCCount = 0;
         for (int i = 0; i < NPCs.Length; ++i)
         {
             string tag = "waypoints" + i;
             GameObject[] points = GameObject.FindGameObjectsWithTag(tag);
-            Instantiate(NPCs[i], points[0].transform.position, Quaternion.identity);
+            _container.InstantiatePrefab(NPCs[i], points[0].transform.position, Quaternion.identity, null);
         }
     }
 }
