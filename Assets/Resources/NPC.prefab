@@ -281,12 +281,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   FieldOfView: 45
-  ViewDistance: 20
+  ViewDistance: 30
   StandingSightRange: 30
   CrouchingSightRange: 15
   DetectionRate: 1
-  framesSeenBeforeReset: 50
-  TextUI: {fileID: 0}
+  FramesSeenBeforeReset: 100
 --- !u!65 &869883129
 BoxCollider:
   m_ObjectHideFlags: 0
