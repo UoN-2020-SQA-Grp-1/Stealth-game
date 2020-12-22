@@ -9,10 +9,13 @@ public class EnemyTakeDown : MonoBehaviour
     [Inject]
     private IInputReader InputReader;
     public float TakeDownRange = 3f;
+    private bool InputDisabled = false;
 
     // Update is called once per frame
     void Update()
     {
+        if (InputDisabled)
+            return;
         if (InputReader.getButtonDown("Submit"))
         {
             RaycastHit hit;
@@ -29,5 +32,10 @@ public class EnemyTakeDown : MonoBehaviour
                 }
             }
         }
+    }
+
+    public void DisableInput()
+    {
+        InputDisabled = true;
     }
 }

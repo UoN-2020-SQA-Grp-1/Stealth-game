@@ -70,7 +70,9 @@ public class Sight : MonoBehaviour
         TextDisplayer.ShowText("You were seen! Finish the level without being seen");
         GameObject player = GameObject.FindGameObjectWithTag("Player");
         PlayerMovement playerMovement = player.GetComponent<PlayerMovement>();
+        EnemyTakeDown enemyTakeDown = player.GetComponent<EnemyTakeDown>();
         playerMovement.DisableInput();
+        enemyTakeDown.DisableInput();
         StartCoroutine("WaitFor");
     }
     private IEnumerator WaitFor()
