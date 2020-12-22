@@ -45,7 +45,7 @@ namespace Tests
             npc.transform.rotation = Quaternion.Euler(0, 0, 0);
             player.transform.rotation = Quaternion.Euler(0, 0, 0);
 
-            npc.transform.position = player.transform.position + new Vector3(0, 0, 5);
+            npc.transform.position = player.transform.position + new Vector3(0, 0, 10);
 
             yield return null;
 
